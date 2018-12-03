@@ -92,7 +92,7 @@ maxLength，tempLength = 0
 
 如果我们遇到了一个dict里面有的元素，我们要看它是属于以前的用过的，还是刚才添加进来的，这里我们使用一个距离就能表示，因为如果这个重复的是之前的那么它的位置+tempLength肯定小于当前位置。  
 
-![1.jpg]()  
+![1.jpg](../img/Leetcode 3. Longest Substring Without Repeating Characters 无重复字符的最长子串_1.jpg)  
 
 所以这个时候如果在字典中有检查到出现，那么需要再多一步判断，也就是3.2的操作进行多一步判断，这个重复的是在当前串中的，还是以前删掉的串中的。代码中就是if dict[s[i]] +temLength <i:这个判断。  
 
