@@ -3,7 +3,7 @@
 ### 一 .打开文件  
 
 通常使用pandas打开一个csv文件，你可以使用read_csv来读取一个csv文件，他的返回值是一个DataFrame类型的数据。假如csv文件格式如下:  
-![](https://i.imgur.com/p1LLiEB.png)  
+![在这里插入图片描述](https://img-blog.csdnimg.cn/2019032121424573.png)
 
 其中第一行不是数据，而是列的名字，然后其他的行都是有效数据。
 
