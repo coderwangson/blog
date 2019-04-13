@@ -54,7 +54,7 @@ class Solution(object):
                 book[j] =1
                 tmp.append(nums[j])
                 self.dfs(i+1,nums,book,tmp,res)
-                tmp.remove(nums[j])
+                tmp.pop(-1)
                 book[j] =0
 
 
