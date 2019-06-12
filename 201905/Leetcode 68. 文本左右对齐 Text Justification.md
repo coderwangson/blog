@@ -8,23 +8,6 @@
 
 ## 题目描述  
 
-<p>给定一个单词数组和一个长度&amp;nbsp;<em>maxWidth</em>，重新排版单词，使其成为每行恰好有&amp;nbsp;<em>maxWidth</em>&amp;nbsp;个字符，且左右两端对齐的文本。</p>
-
-<p>你应该使用&amp;ldquo;贪心算法&amp;rdquo;来放置给定的单词；也就是说，尽可能多地往每行中放置单词。必要时可用空格&amp;nbsp;<code>&amp;#39; &amp;#39;</code>&amp;nbsp;填充，使得每行恰好有 <em>maxWidth</em>&amp;nbsp;个字符。</p>
-
-<p>要求尽可能均匀分配单词间的空格数量。如果某一行单词间的空格不能均匀分配，则左侧放置的空格数要多于右侧的空格数。</p>
-
-<p>文本的最后一行应为左对齐，且单词之间不插入<strong>额外的</strong>空格。</p>
-
-<p><strong>说明:</strong></p>
-
-<ul>
-	<li>单词是指由非空格字符组成的字符序列。</li>
-	<li>每个单词的长度大于 0，小于等于&amp;nbsp;<em>maxWidth</em>。</li>
-	<li>输入单词数组 <code>words</code>&amp;nbsp;至少包含一个单词。</li>
-</ul>
-
-
 <p>给定一个单词数组和一个长度&nbsp;<em>maxWidth</em>，重新排版单词，使其成为每行恰好有&nbsp;<em>maxWidth</em>&nbsp;个字符，且左右两端对齐的文本。</p>
 
 <p>你应该使用“贪心算法”来放置给定的单词；也就是说，尽可能多地往每行中放置单词。必要时可用空格&nbsp;<code>' '</code>&nbsp;填充，使得每行恰好有 <em>maxWidth</em>&nbsp;个字符。</p>
@@ -36,9 +19,9 @@
 <p><strong>说明:</strong></p>
 
 <ul>
-	<li>单词是指由非空格字符组成的字符序列。</li>
-	<li>每个单词的长度大于 0，小于等于&nbsp;<em>maxWidth</em>。</li>
-	<li>输入单词数组 <code>words</code>&nbsp;至少包含一个单词。</li>
+    <li>单词是指由非空格字符组成的字符序列。</li>
+    <li>每个单词的长度大于 0，小于等于&nbsp;<em>maxWidth</em>。</li>
+    <li>输入单词数组 <code>words</code>&nbsp;至少包含一个单词。</li>
 </ul>
 
 <p><strong>示例:</strong></p>
@@ -85,7 +68,8 @@ maxWidth = 20
 &nbsp; "everything &nbsp;else &nbsp;we",
 &nbsp; "do &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;"
 ]
-</pre>  
+</pre>
+
 
 ## 算法思想 
 
