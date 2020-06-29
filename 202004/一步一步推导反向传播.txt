@@ -1,0 +1,50 @@
+﻿# 一步一步推导反向传播  
+假如我们由如下的网络（这里只给出最后两层$l$和$l+1$）其中$l+1$是最后输出：    
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20200403171138419.jpg#pic_center)
+其中有如下定义：  
+
+$a^{l+1} = sigmoid(z^{l+1})……(1)$
+$z^{l+1} = w^l*a^l…	………(2)$
+注意这里的$w、a、z$都是矩阵或向量。其定义和吴恩达的一样，比如$a^l_j$代表第$l层的第j个节点$。  
+
+--------------  
+**因为反向传播是要求最后的损失对前面所有的权重的导数，然后再更新权重，所以我们的关键在于求出损失的权重的求导**，上面的图中最后的输出是$a^{l+1}$，所以我们对应的损失如下：
+
+$J(\theta) =-[yloga^{l+1}+(1-y)log(1-a^{l+1})]$  我们将$J(\theta)写作C$。
+
+我们的目的是要求$\frac{\partial C}{\partial w^l}$，我们可以通过链式运算：  
+
+首先由上面的损失公式，我们可以很直观的看出来$\frac{\partial C}{\partial a^{l+1}} =\frac{a^{l+1}-y}{a^{l+1}(1-a^{l+1})}$ ,注意这里省去了常数部分。  
+
+根据链式法则，我们可以得到$\frac{\partial C}{\partial z^{l+1}} =\frac{\partial C}{\partial a^{l+1}}\frac{\partial a^{l+1}}{\partial z^{l+1}}$ ,然后再结合式1，因为$a^{l+1} = sigmoid(z^{l+1})$ ，并且$f(x) = sigmoid(x)的导数为f’(x) =f(x)(1-f(x))$，所以$\frac{\partial a^{l+1}}{\partial z^{l+1}}=a^{l+1}(1-a^{l+1})$ ,最终我们得到如下： 
+$$
+\frac{\partial C}{\partial z^{l+1}} =\frac{\partial C}{\partial a^{l+1}}\frac{\partial a^{l+1}}{\partial z^{l+1}}=a^{l+1}-y …… (3)
+$$  
+我们离权重只剩下一步之遥了，同样利用链式法则，我们可以得到$\frac{\partial C}{\partial w^{l}} =\frac{\partial C}{\partial z^{l+1}}\frac{\partial z^{l+1}}{\partial w^{l}}$ ,结合式子2，因为$z^{l+1} = w^l*a^l$，所以$\frac{\partial z^{l+1}}{\partial w^{l}} =a^l$到此为止，我们得到了损失对$w^l$的导数：  
+$$
+\frac{\partial C}{\partial w^{l}} =\frac{\partial C}{\partial z^{l+1}}\frac{\partial z^{l+1}}{\partial w^{l}}=\frac{\partial C}{\partial z^{l+1}}a^l=(a^{l+1}-y)*a^l ……(4)
+$$  
+
+看到这里，可能心里想，这如果要好几百层怎么推呀，其实我们可以发现当我们求第$l$层的时候，我们会用到$l+1$层的数据，所以如果能找到规律就好了，那么我们再向下推一层看看，同理，根据链式法则，我们可以得到$\frac{\partial C}{\partial z^{l}}=\frac{\partial C}{\partial z^{l+1}}\frac{\partial z^{l+1}}{\partial z^{l}}$ ,而$z^{l+1}=w^la^l=w^lsigmoid(z^l)$，所以$\frac{\partial z^{l+1}}{\partial z^{l}}=(w^l)^Ta^l(1-a^l)$，所以我们得到如下：
+$$
+\frac{\partial C}{\partial z^{l}}=\frac{\partial C}{\partial z^{l+1}}(w^l)^Ta^l(1-a^l)……（5）
+$$ 
+
+看看我们发现了什么，我们发现第$l$层对$z$的导数和第$l+1$层对$z$的关系了，所以我们可以设$\frac{\partial C}{\partial z^{l}} =\delta^l$,所以我们有：
+$$
+\delta^l = \delta^{l+1}(w^l)^Ta^l(1-a^l)……（6）
+$$
+再根据链式法则得到对权重的导数为:
+$$
+\frac{\partial C}{\partial w^{l-1}}  =\frac{\partial C}{\partial z^{l}} \frac{\partial z^l}{\partial w^{l-1}}  =\delta^la^{l-1}……（7）
+$$
+其中（$z^l=w^{l-1}a^{l-1}$） 
+
+按照（7）这种写法，我们也可以将（4）改下如下：
+$$
+\frac{\partial C}{\partial w^{l}} =\frac{\partial C}{\partial z^{l+1}}\frac{\partial z^{l+1}}{\partial w^{l}}= \delta^{l+1}a^l ……(4\_1)
+$$  
+所以我们就得到了我们的损失对于任意$l$层的权重的导数，也就是式子4_1,发现里面只存在一个$\delta$是未知的，而结合式子6，我们就能求出所有层的$\delta$。  
+
+比如我们最后一层是$L$层，根据$\delta^l$的定义得到$\delta^L=\frac{\partial C}{\partial z^{L}}$，因为最后一层，所以结合损失，计算得到$\delta^L=\frac{\partial C}{\partial z^{L}}=a^L-y$,可以参考式子3的计算。当计算得到第$L层的\delta$,那么$L-1,L-2...$就可以递推得到，进而带入4_1，就能得到对所有层权重的导数，进而更新权重。
+
